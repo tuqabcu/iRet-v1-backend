@@ -1,34 +1,37 @@
-var mongoose = require('mongoose');
-var config = require('./config');
+// Copyright ©,2023, Birmingham City University
 
-exports.connect = function() {
+var mongoose = require("mongoose");
+var config = require("./config");
 
-	var handleConnection = function() {
-		console.log("Connecting to database ");
-		mongoose.connect(config.db.url);
-	};
-	
-	handleConnection();
+exports.connect = function () {
+  var handleConnection = function () {
+    console.log("Connecting to database ");
+    mongoose.connect(config.db.url);
+  };
 
-	// Error handler
-	mongoose.connection.on('error', function(err) {
-		console.log(err);
-	});
+  handleConnection();
 
-	// Reconnect when closed
-	mongoose.connection.on('disconnected', function() {
-		handleConnection();
-	});
+  // Error handler
+  mongoose.connection.on("error", function (err) {
+    console.log(err);
+  });
 
-	// If the Node process ends, close the Mongoose connection
-	process.on('SIGINT', function() {
-		mongoose.connection.close(function () {
-			console.log('Mongoose default connection disconnected through app termination');
-			process.exit(0);
-		});
-	});
+  // Reconnect when closed
+  mongoose.connection.on("disconnected", function () {
+    handleConnection();
+  });
+
+  // If the Node process ends, close the Mongoose connection
+  process.on("SIGINT", function () {
+    mongoose.connection.close(function () {
+      console.log(
+        "Mongoose default connection disconnected through app termination"
+      );
+      process.exit(0);
+    });
+  });
 };
 
-exports.sync = function(){
-	require("../app/models/User");
-}
+exports.sync = function () {
+  require("../app/models/User");
+};

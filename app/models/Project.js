@@ -1,3 +1,5 @@
+// Copyright ©,2023, Birmingham City University
+
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var bcrypt 		= require('bcrypt');

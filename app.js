@@ -1,3 +1,5 @@
+// Copyright ©,2023, Birmingham City University
+
 var config = require("./config/config");
 var server = require("./config/server");
 var router = require("./router");
@@ -10,7 +12,7 @@ var passport = require("passport");
 var flash = require("connect-flash");
 const cors = require("cors");
 const fs = require("fs");
-const csv=require('csvtojson')
+const csv = require("csvtojson");
 
 var app = express();
 app.use(cors());
@@ -35,16 +37,14 @@ router.route(app);
 	Start server
 */
 app.set("port", config.server.port);
-app.use("/files",express.static('files'));
-
-
+app.use("/files", express.static("files"));
 
 async function getCities(req, res) {
-	const jsonArray=await csv().fromFile(__dirname+'/files/weather.csv');
-	res.send(jsonArray);
+  const jsonArray = await csv().fromFile(__dirname + "/files/weather.csv");
+  res.send(jsonArray);
 }
 
-app.get('/cities', getCities)
+app.get("/cities", getCities);
 
 app.listen(app.get("port"), function () {
   console.log("Server listenting on ");

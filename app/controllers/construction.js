@@ -1,3 +1,5 @@
+// Copyright ©,2023, Birmingham City University
+
 var Construction = require("../models/Construction");
 var utilities = require("../utils/utilities");
 const mongoose = require("mongoose");
